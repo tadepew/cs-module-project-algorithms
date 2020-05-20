@@ -46,8 +46,12 @@ def single_number(arr):
     res = arr[0]
 
     # Do XOR of all elements and return
-    for i in range(1, len(arr)):
-        res = res ^ arr[i]
+    # x ^ x = 0
+    # all duplicates get xor'd leaving single number
+    # single number ^ 0 is just the number ( or 0 ^)
+    # 23 steps // O(1) space complexity
+    for i in enumerate(arr, 1):
+        res = res ^ i
 
     return res
 
