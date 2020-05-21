@@ -2,30 +2,24 @@
 Input: a List of integers as well as an integer `k` representing the size of the sliding window
 Returns: a List of integers
 '''
-import sys
-INT_MIN = -sys.maxsize - 1
 
 
 def sliding_window_max(nums, k):
 
     # length must be greater than k
     if not len(nums) > k:
-        print("Invalid")
         return -1
 
-    # Find of first window of size k
-    max_sum = INT_MIN
-    window_max = []
-    window_max.append(max(nums[:k]))
+    # for a list of length 8 and window of 3, 8-3 = 5 + = 6 maxes
+    window_max = [0] * (len(nums)-k+1)
 
-    # Compute sums of remaining windows by
-    # removing first element of previous
-    # window and adding last element of
-    # current window.
-    for i in range(1, len(nums)-k+1):
+    # need to add 1 because i is the first # in the window, so if the window is 3 and the length is 8 then it will stop at 5 but we need the range to stop at 6 to include 5 becuase the stop in range isn't inclusive
+    for i in range(0, len(nums)-k+1):
+        # doesn't include below index in slice end
         new_window_right = i + k
+        # does include i in slice start
         new_window_left = i
-        window_max.append(max(nums[new_window_left:new_window_right]))
+        window_max[i] = max(nums[new_window_left:new_window_right])
 
     return window_max
 
